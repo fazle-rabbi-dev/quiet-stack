@@ -135,7 +135,7 @@ bun install
 
 - Copy the sample environment file:
   ```bash
-  cp .env.example .env.local
+  cp example.env .env.local
   ```
 - Fill in your credentials:
 
