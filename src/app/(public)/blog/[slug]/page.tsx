@@ -51,6 +51,10 @@ export async function generateStaticParams() {
 // on dev mode this component get called first than above function get fired
 // on build time: the above is triggured and than with each slug the component get fired
 export default async function BlogPage({ params }: BlogPageProps) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("posts");
+
   const { slug } = await params;
   const { success, data: post } = await getPostBySlug(slug);
 
