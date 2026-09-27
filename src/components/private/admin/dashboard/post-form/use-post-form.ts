@@ -14,7 +14,8 @@ import { calculateReadingTime, validatePostForm } from "./post-form-utils";
 
 export function usePostForm(
   parent: PostFormParent,
-  initialData?: Partial<PostFormData>
+  initialData?: Partial<PostFormData>,
+  originalSlug?: string
 ) {
   const isEdit = parent === "edit-post";
   const router = useRouter();
@@ -84,8 +85,7 @@ export function usePostForm(
 
     try {
       if (isEdit) {
-        const { slug, ...rest } = formData;
-        const response = await updatePost({ ...rest, slug });
+        const response = await updatePost(formData, originalSlug);
         if (!response.success) {
           toast.add({ title: "Post update failed", type: "error" });
           return;

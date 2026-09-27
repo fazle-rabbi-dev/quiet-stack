@@ -66,7 +66,11 @@ export default async function EditPostPage({
             </p>
           </div>
 
-          <PostForm parent="edit-post" initialData={initialData} />
+          <PostForm
+            parent="edit-post"
+            initialData={initialData}
+            originalSlug={initialData.slug}
+          />
         </section>
       </div>
     </main>

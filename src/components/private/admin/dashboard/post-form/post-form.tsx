@@ -40,9 +40,10 @@ const MDEditor = dynamic(() => import("@uiw/react-md-editor"), {
 type PostFormProps = {
   parent: PostFormParent;
   initialData?: Partial<PostFormData>;
+  originalSlug?: string;
 };
 
-export function PostForm({ parent, initialData }: PostFormProps) {
+export function PostForm({ parent, initialData, originalSlug }: PostFormProps) {
   const {
     isEdit,
     formData,
@@ -54,7 +55,7 @@ export function PostForm({ parent, initialData }: PostFormProps) {
     handleRemoveTag,
     handleContentChange,
     handleSubmit,
-  } = usePostForm(parent, initialData);
+  } = usePostForm(parent, initialData, originalSlug);
 
   const { resolvedTheme } = useTheme();
   // to apply the theme of nextTheme to the md editor at bellow
@@ -102,7 +103,6 @@ export function PostForm({ parent, initialData }: PostFormProps) {
                 updateField("slug", e.target.value.toLowerCase())
               }
               // required
-              // disabled={isEdit}
               className={validationErrors.slug ? "border-destructive" : ""}
             />
             <div className="flex justify-between">
@@ -110,9 +110,7 @@ export function PostForm({ parent, initialData }: PostFormProps) {
                 {validationErrors.slug}
               </div>
               <div className="text-xs text-muted-foreground">
-                {isEdit
-                  ? "Slug is locked after creation"
-                  : "URL-friendly identifier (lowercase, no spaces)"}
+                URL-friendly identifier (lowercase, no spaces)
               </div>
             </div>
           </div>

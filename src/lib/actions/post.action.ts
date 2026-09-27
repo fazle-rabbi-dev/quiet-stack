@@ -29,7 +29,7 @@ export async function createPost(post: Partial<IPost>) {
   }
 }
 
-export async function updatePost(post: Partial<IPost>) {
+export async function updatePost(post: Partial<IPost>, originalSlug?: string) {
   if (!(await requireAdmin())) {
     return { success: false, error: "Unauthorized" };
   }
@@ -38,14 +38,19 @@ export async function updatePost(post: Partial<IPost>) {
     await connectDB();
 
     // Strip immutable/system fields, keep slug as the identifier
-    const { slug, _id, createdAt, updatedAt, __v, ...rest } =
+    const { _id, createdAt, updatedAt, __v, ...rest } =
       post as Partial<IPost> & {
         _id?: unknown;
         createdAt?: unknown;
         updatedAt?: unknown;
         __v?: unknown;
       };
-    const updatedPost = await Post.updateOne({ slug }, { $set: rest });
+
+    // Match by the ORIGINAL slug so renames work, write the new slug value
+    const updatedPost = await Post.updateOne(
+      { slug: originalSlug },
+      { $set: { ...rest } }
+    );
     updateTag("posts");
 
     return { success: true, data: JSON.parse(JSON.stringify(updatedPost)) };
