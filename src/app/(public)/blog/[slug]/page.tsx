@@ -28,14 +28,20 @@ export async function generateMetadata({
   return {
     title: post.title,
     description: post.excerpt,
-    twitter: { card: "summary_large_image", title: post.title, description: post.excerpt },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
   };
 }
 
 export async function generateStaticParams() {
   const { success, data: posts } = await getPosts();
 
-  if (!success) return [];
+  if (!success || posts.length === 0) {
+    return [{ slug: "placeholder" }];
+  }
 
   return posts.map((post) => ({
     slug: post.slug,
