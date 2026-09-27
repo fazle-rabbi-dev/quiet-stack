@@ -1,3 +1,7 @@
+// to fix dns query issue (especially for srv query failure) happens with nodejs 24.x.x
+import dns from "node:dns/promises";
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
+
 import mongoose from "mongoose";
 import { mongodbUri } from "@/lib/env";
 
