@@ -33,3 +33,9 @@ The build-time prerender is only the opening snapshot. Here is the exact flow af
 4. Stream + display. The fresh HTML streams in, so the first navigation already shows the edit. No waiting for the hourly cacheLife to expire.
 
 So cacheLife("hours") sets how long entries may live, but updateTag kills them on demand. Build prerender fills the cache once; tag invalidation is what keeps it correct after every write.
+
+## Issue faced and debugged after deployment
+
+- The blog details page always displayed a spinner on page reload, while my expectation was to display cached data. I debugged the issue and found that the page is rendered on the server on each request, and only the DB result is cached server-side — the HTML page itself is not cached, so it's rendered on demand using that cached data.
+
+> I applied cache to the post fetcher function that's why i was expecting the page to be cached.
