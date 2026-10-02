@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
+// import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
-
 import "./globals.css";
+import { cn } from "@/lib/utils";
+import { NEXT_PUBLIC_SITE_URL } from "@/lib/env";
 
 import { SiteHeader } from "@/components/shared/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
-import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/ui/toast";
 import { ScrollProgress } from "@/components/public/blog/scroll-progress";
-import { Suspense } from "react";
-import { NEXT_PUBLIC_SITE_URL } from "@/lib/env";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -80,7 +79,9 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <ScrollProgress />
+          {/* <Suspense fallback={<span>Loading...</span>}> */}
           <SiteHeader />
+          {/* </Suspense> */}
           <div className="pt-16">{children}</div>
           <Toaster />
         </ThemeProvider>

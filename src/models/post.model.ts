@@ -65,7 +65,7 @@ export type IPost = InferRawDocType<typeof postSchemaDef> & {
 };
 
 export const Post: Model<IPost> =
-  mongoose.models.Post ?? mongoose.model<IPost>("Post", postSchema);
+  mongoose.models.Posts ?? mongoose.model<IPost>("Posts", postSchema);
 
 // ==============================
 // Like Model - Anonymous Likes Tracking
