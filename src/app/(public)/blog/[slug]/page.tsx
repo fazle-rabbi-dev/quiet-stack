@@ -22,9 +22,9 @@ export async function generateMetadata({
   params,
 }: BlogPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const { success, data: post } = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
-  if (!success || !post) return { title: "Post not found" };
+  if (!post) return { title: "Post not found" };
 
   return {
     title: post.title,
@@ -38,9 +38,9 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const { success, data: posts } = await getPosts();
+  const posts = await getPosts();
 
-  if (!success || posts.length === 0) {
+  if (!posts || posts.length === 0) {
     return [{ slug: "placeholder" }];
   }
 
@@ -52,12 +52,12 @@ export async function generateStaticParams() {
 export default async function BlogPage({ params }: BlogPageProps) {
   "use cache";
   cacheLife("hours");
-  cacheTag("posts");
+  // cacheTag("posts");
 
   const { slug } = await params;
-  const { success, data: post } = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
-  if (!success || !post) notFound();
+  if (!post) notFound();
 
   const words = countWords(post.content);
 
@@ -101,7 +101,7 @@ export default async function BlogPage({ params }: BlogPageProps) {
           />
 
           <div className="py-8">
-            <BlogContent content={post.content} />
+            <BlogContent content={html} />
 
             {/* without suspense here the entire page will become dynamic and page output html also contains parent suspense fallback */}
             {/* 👽 i spent almost 2+ days to findout this root cause */}

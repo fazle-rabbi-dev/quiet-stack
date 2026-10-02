@@ -21,10 +21,29 @@ export async function getPosts() {
       .lean();
     const plainPosts = JSON.parse(JSON.stringify(posts)) as IPost[];
 
-    return { success: true, data: plainPosts };
+    return plainPosts;
+    // return { success: true, data: plainPosts };
   } catch (error) {
     logger.error("Error fetching posts:", error);
-    return { success: false, data: [] };
+    return null;
+  }
+}
+
+export async function getPostBySlug(slug: string) {
+  "use cache";
+  cacheLife("hours");
+  cacheTag("posts", `post-${slug}`);
+
+  try {
+    await connectDB();
+    const post = await Post.findOne({ slug, status: "published" }).lean();
+    if (!post) return null;
+    const plainPost = JSON.parse(JSON.stringify(post)) as IPost;
+
+    return plainPost;
+  } catch (error) {
+    logger.error("Error fetching post by slug:", error);
+    return null;
   }
 }
 
@@ -79,24 +98,6 @@ export async function getLatestPosts(limit = 3) {
   } catch (error) {
     logger.error("Error fetching latest posts:", error);
     return { success: false, data: [] };
-  }
-}
-
-export async function getPostBySlug(slug: string) {
-  "use cache";
-  cacheLife("hours");
-  cacheTag("posts", `post-${slug}`);
-
-  try {
-    await connectDB();
-    const post = await Post.findOne({ slug, status: "published" }).lean();
-    if (!post) return { success: false, data: null };
-    const plainPost = JSON.parse(JSON.stringify(post)) as IPost;
-
-    return { success: true, data: plainPost };
-  } catch (error) {
-    logger.error("Error fetching post by slug:", error);
-    return { success: false, data: null };
   }
 }
 
