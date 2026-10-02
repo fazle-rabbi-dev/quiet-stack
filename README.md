@@ -1,5 +1,5 @@
 <div align="center">
-  <img width="70" src="./public/android-chrome-512x512.png" alt="Link-Leaf - Logo" />
+  <img width="70" src="./public/android-chrome-512x512.png" alt="QuietStack - Logo" />
   <h1>QuietStack</h1>
   <p>
     A modern, <b>open-source</b>, minimal and fast blogging platform.
@@ -22,7 +22,7 @@ I want to share my thoughts and ideas with the world. I want to write about my e
 
 ## Live Demo 🎉
 
-- 🌐 [link-leaf.vercel.app](https://quiet-stack.vercel.app/)
+- 🌐 [quiet-stack.vercel.app](https://quiet-stack.vercel.app/)
 
 ---
 
