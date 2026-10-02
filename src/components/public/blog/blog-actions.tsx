@@ -22,11 +22,12 @@ export function BlogActions({
   content,
   likes,
 }: BlogActionsProps) {
-
   async function copyMarkdown() {
     const ok = await copyText(content);
     toast.add(
-      ok ? { title: "Markdown copied", type: "success" } : { title: "Copy failed", type: "error" }
+      ok
+        ? { title: "Markdown copied", type: "success" }
+        : { title: "Copy failed", type: "error" }
     );
   }
 
@@ -54,7 +55,9 @@ export function BlogActions({
 
     const ok = await copyText(url);
     toast.add(
-      ok ? { title: "Link copied", type: "success" } : { title: "Share failed", type: "error" }
+      ok
+        ? { title: "Link copied", type: "success" }
+        : { title: "Share failed", type: "error" }
     );
   }
 
