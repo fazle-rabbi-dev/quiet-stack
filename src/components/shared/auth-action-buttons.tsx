@@ -2,8 +2,11 @@ import { Button } from "../ui/button";
 import { LogOutIcon, PenLine, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
 import { getAuthUser, logoutAction } from "@/lib/actions/auth.action";
+import { connection } from "next/server";
 
 const AuthActionButtons = async () => {
+  await connection();
+
   const user = await getAuthUser();
   const isLoggedIn = !!user;
 

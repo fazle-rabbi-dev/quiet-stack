@@ -40,11 +40,11 @@ export function SiteHeader() {
 
         {/* Actions */}
         <div className="flex-center gap-2">
-          <ThemeToggle />
-          <Suspense fallback={<span>...</span>}>
+          <Suspense fallback={<span>Loading...</span>}>
+            <ThemeToggle />
             <AuthActionButtons />
+            <MobileNav />
           </Suspense>
-          <MobileNav />
         </div>
       </div>
     </header>
