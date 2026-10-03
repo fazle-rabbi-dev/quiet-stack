@@ -71,9 +71,11 @@ export async function getFeaturedPosts() {
 
   try {
     await connectDB();
+    console.log("===========DB HIT");
     const posts = await Post.find({ featured: true, status: "published" })
       .sort({ createdAt: -1, _id: -1 })
       .lean();
+    console.log("=========== featured posts fetched", posts.length);
     const plainPosts = JSON.parse(JSON.stringify(posts)) as IPost[];
 
     return { success: true, data: plainPosts };
