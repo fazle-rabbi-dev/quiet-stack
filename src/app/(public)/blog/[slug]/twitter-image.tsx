@@ -19,10 +19,10 @@ type TwitterProps = {
 
 export default async function TwitterImage({ params }: TwitterProps) {
   const { slug } = await params;
-  const { success, data: post } = await getPostBySlug(slug);
+  const post = await getPostBySlug(slug);
 
-  const title = success && post ? post.title : "QuietStack";
-  const tag = success && post?.tags?.[0] ? `#${post.tags[0]}` : "#blog";
+  const title = post ? post.title : "QuietStack";
+  const tag = post?.tags?.[0] ? `#${post.tags[0]}` : "#blog";
   const gradient = GRADIENTS[post?.cover ?? "violet"] ?? GRADIENTS.violet;
 
   return new ImageResponse(
