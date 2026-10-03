@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-// import { Suspense } from "react";
+import { Suspense } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { NEXT_PUBLIC_SITE_URL } from "@/lib/env";
 
+import { NEXT_PUBLIC_SITE_URL } from "@/lib/env";
 import { SiteHeader } from "@/components/shared/site-header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toast";
@@ -78,12 +78,10 @@ export default function RootLayout({
       </head>
       <body>
         <ThemeProvider>
-          <ScrollProgress />
-          {/* <Suspense fallback={<span>Loading...</span>}> */}
           <SiteHeader />
-          {/* </Suspense> */}
           <div className="pt-16">{children}</div>
           <Toaster />
+          <ScrollProgress />
         </ThemeProvider>
       </body>
     </html>

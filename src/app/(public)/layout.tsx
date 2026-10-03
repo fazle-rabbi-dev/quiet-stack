@@ -1,5 +1,5 @@
-import { SiteFooter } from "@/components/shared/site-footer";
 import { Suspense } from "react";
+import { SiteFooter } from "@/components/shared/site-footer";
 
 export default function RootLayout({
   children,
