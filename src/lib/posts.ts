@@ -36,7 +36,9 @@ export async function getPostBySlug(slug: string) {
 
   try {
     await connectDB();
+    console.log("===========DB HIT", slug);
     const post = await Post.findOne({ slug, status: "published" }).lean();
+    console.log("=========== post fetched", post);
     if (!post) return null;
     const plainPost = JSON.parse(JSON.stringify(post)) as IPost;
 
