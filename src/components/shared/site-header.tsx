@@ -1,15 +1,18 @@
 import Link from "next/link";
-
 import { Feather, PenLine, SlidersHorizontal } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { MobileNav } from "@/components/shared/mobile-nav";
 import { ThemeToggle } from "@/components/shared/theme-toggle";
 import { NAV_LINKS } from "@/constants/site";
-import AuthActionButtons from "./auth-action-buttons";
+// import AuthActionButtons from "./auth-action-buttons";
 import { Suspense } from "react";
+import { Button } from "../ui/button";
+// import { connection } from "next/server";
 
-export function SiteHeader() {
+export async function SiteHeader() {
+  // await connection();
+
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-md">
       <div className="max-body flex-center h-16 justify-between gap-4">
@@ -42,7 +45,15 @@ export function SiteHeader() {
         <div className="flex-center gap-2">
           <Suspense fallback={<span>Loading...</span>}>
             <ThemeToggle />
-            <AuthActionButtons />
+            <a href="/admin/login">
+              <Button
+                className="btn-primary text-white"
+                size="lg"
+                nativeButton={false}
+                render={<span>Admin</span>}
+              />
+            </a>
+            {/* <AuthActionButtons /> */}
             <MobileNav />
           </Suspense>
         </div>
